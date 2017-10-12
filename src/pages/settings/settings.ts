@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {UserProvider} from "../../providers/user/user";
+import { AlertController } from 'ionic-angular';
+import {UserComponent} from "../../entities/user.model";
 
 /**
  * Generated class for the SettingsPage page.
@@ -14,12 +17,20 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'settings.html',
 })
 export class SettingsPage {
+  user:UserComponent =  { "mail": "", "userName": "NonConnecté",password:""};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public alertCtrl: AlertController, private userProvider : UserProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SettingsPage');
   }
 
+  getConnectedUser(): void {
+
+    this.userProvider.getUser("laurent").then(
+      user => this.user = user
+    )
+
+  }
 }

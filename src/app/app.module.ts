@@ -16,6 +16,8 @@ import {ConsumptionPage} from "../pages/consumption/consumption";
 import {BudgetPage} from "../pages/budget/budget";
 import {QrcodePage} from "../pages/qrcode/qrcode";
 import {HomePage} from "../pages/home/home";
+import { UserProvider } from '../providers/user/user';
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -34,6 +36,7 @@ import {HomePage} from "../pages/home/home";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
+    HttpModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -52,7 +55,8 @@ import {HomePage} from "../pages/home/home";
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    UserProvider
   ]
 })
 export class AppModule {}
