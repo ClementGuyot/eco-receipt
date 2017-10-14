@@ -28,7 +28,7 @@ export class SettingsPage {
 
   getConnectedUser(): void {
 
-    this.userProvider.getUser("laurent").then(
+    this.userProvider.getUser("laurent","laurent").then(
       user => this.user = user
     )
 
