@@ -18,6 +18,7 @@ import {QrcodePage} from "../pages/qrcode/qrcode";
 import {HomePage} from "../pages/home/home";
 import { UserProvider } from '../providers/user/user';
 import {HttpModule} from "@angular/http";
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import {HttpModule} from "@angular/http";
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    NgxQRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
