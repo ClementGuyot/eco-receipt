@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 import { UserComponent} from '../../entities/user.model';
+import {isUndefined} from "ionic-angular/util/util";
 /*
   Generated class for the UserProvider provider.
 
@@ -11,6 +12,7 @@ import { UserComponent} from '../../entities/user.model';
 @Injectable()
 export class UserProvider {
 
+  private utilisateurConnecte:UserComponent;
   getApiUrl : string = "http://localhost:8080/api/user/findByUserName?userName=";
   private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -23,13 +25,23 @@ export class UserProvider {
     return Promise.reject(error.message || error);
   }
 
-  getUser(name: string): Promise<UserComponent> {
+  /**
+   *
+   * @param name the name of the current user
+   * @param password the password of the current user
+   * @returns {any}
+   */
+  getUser(name: string, password: string): Promise<UserComponent> {
+    if(!isUndefined(this.utilisateurConnecte) && this.utilisateurConnecte.userName === name){
+      return Promise.resolve(this.utilisateurConnecte);
+    }
     const url = `${this.getApiUrl}${name}`;
     return this.http.get(url)
       .toPromise()
       .then(response => {
-        return response.json() as UserComponent
-$      })
+        this.utilisateurConnecte = response.json() as UserComponent;
+        return this.utilisateurConnecte;
+      })
       .catch(this.handleError);
   }
 }
