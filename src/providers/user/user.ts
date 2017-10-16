@@ -25,7 +25,10 @@ export class UserProvider {
     return Promise.reject(error.message || error);
   }
 
-  /**
+  getConnectedUser(): Promise<UserComponent> {
+    return Promise.resolve(this.utilisateurConnecte);
+  }
+    /**
    *
    * @param name the name of the current user
    * @param password the password of the current user
@@ -33,7 +36,7 @@ export class UserProvider {
    */
   getUser(name: string, password: string): Promise<UserComponent> {
     if(!isUndefined(this.utilisateurConnecte) && this.utilisateurConnecte.userName === name){
-      return Promise.resolve(this.utilisateurConnecte);
+      return this.getConnectedUser()
     }
     const url = `${this.getApiUrl}${name}`;
     return this.http.get(url)

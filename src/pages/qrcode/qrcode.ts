@@ -22,10 +22,13 @@ export class QrcodePage implements OnInit{
   constructor(private userProvider : UserProvider, public navCtrl: NavController, public navParams: NavParams) {
   }
 
+  /**
+   * Implementation of OnInit Interface, generate QRCode
+   */
   ngOnInit() {
-    this.userProvider.getUser("laurent","laurent").then(
+    this.userProvider.getConnectedUser().then(
       user => this.qrCodeValue = this.qrCodeValue + user.userName
-    )
+    ).catch()
   }
 
   ionViewDidLoad() {
